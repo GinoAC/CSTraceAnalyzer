@@ -19,20 +19,20 @@ all:$(EXE)
 	@echo Running all 
 
 $(EXE): $(OBJ) | $(BIN_DIR)
-	@echo Running EXE build
+	@echo Building binaries 
 	@echo $(OBJ)
 	$(CXX) $(LDFLAGS) $^ $(LDLIBS) -o $@
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cc | $(OBJ_DIR)
-	@echo Running SRC build
+	@echo Building objects 
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 $(BIN_DIR) $(OBJ_DIR):
-	@echo Making directories 
+	@echo Making directory: $@
 	mkdir -p $@
 
 clean:
 	@echo Cleaning... 
-	@$(RM) -rv $(BIN_DIR) $(OBJ_DIR) # The @ disables the echoing of the command
+	$(RM) -rv $(BIN_DIR) $(OBJ_DIR)
 
 #-include $(OBJ:.o=.d)
