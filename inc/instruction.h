@@ -53,8 +53,6 @@ struct instruction {
   bool branch_prediction = 0;
   bool branch_mispredicted = 0; // A branch can be mispredicted even if the direction prediction is correct when the predicted target is not correct
 
-  uint8_t asid[2] = {std::numeric_limits<uint8_t>::max(), std::numeric_limits<uint8_t>::max()};
-
   uint8_t branch_type = NOT_BRANCH;
   uint64_t branch_target = 0;
 
@@ -77,13 +75,13 @@ struct instruction {
   std::vector<std::reference_wrapper<instruction>> registers_instrs_depend_on_me;
 
 private:
-  class conversion_tag
-  {
-  };
+public:
 
+  instruction() {} 
+ 
   template <typename T>
-  instruction(conversion_tag, T instr) : ip(instr.ip), is_branch(instr.is_branch), branch_taken(instr.branch_taken)
-  {
+  instruction(T instr) : ip(instr.ip), is_branch(instr.is_branch), branch_taken(instr.branch_taken)
+  { 
     std::remove_copy(std::begin(instr.destination_registers), std::end(instr.destination_registers), std::back_inserter(this->destination_registers), 0);
     std::remove_copy(std::begin(instr.source_registers), std::end(instr.source_registers), std::back_inserter(this->source_registers), 0);
     std::remove_copy(std::begin(instr.destination_memory), std::end(instr.destination_memory), std::back_inserter(this->destination_memory), 0);
@@ -137,14 +135,20 @@ private:
     } else {
       branch_taken = false;
     }
+
+    // The exact, true value of the stack pointer for any given instruction can usually be determined immediately after the instruction is decoded without
+    // waiting for the stack pointer's dependency chain to be resolved.
+    if (writes_sp) {
+      // Avoid creating register dependencies on the stack pointer for calls, returns, pushes, and pops, but not for variable-sized changes in the
+      // stack pointer position. reads_other indicates that the stack pointer is being changed by a variable amount, which can't be determined before
+      // execution.
+      if ((is_branch != 0) || !(std::empty(destination_memory) && std::empty(source_memory)) || (!reads_other)) {
+        auto nonsp_end = std::remove(std::begin(destination_registers), std::end(destination_registers), ::REG_STACK_POINTER);
+        destination_registers.erase(nonsp_end, std::end(destination_registers));
+      }
+    }
   }
 
-public:
-  instruction(uint8_t cpu, input_instr instr) : instruction(conversion_tag{}, instr)
-  {
-    asid[0] = cpu;
-    asid[1] = cpu;
-  }
 
   std::size_t num_mem_ops() const { return std::size(destination_memory) + std::size(source_memory); }
 
