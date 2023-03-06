@@ -17,8 +17,10 @@
 //
 //
 #include "analyzer.h"
-  
-template<typename T>
+
+template<typename T> 
 void analyzer<T>::add_instruction(T instr){
   current_instruction = instr;
 }
+
+template class analyzer<instruction>;

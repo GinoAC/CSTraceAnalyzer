@@ -11,14 +11,17 @@
 #include <vector>
 #include <string.h>
 
+#include "analysis_module.h"
 #include "instruction.h"
 #include "trace_handler.h"
+#include "test.h"
 
 template <typename T>
 class analyzer{
 
 private:
 
+  //std::vector<analysis_module> modules;
   uint64_t instr_unique_id = 0;
   T current_instruction;
   int64_t start = 0, end = 0;
@@ -32,6 +35,10 @@ public:
   }
 
   void add_instruction(T instr);
+  uint64_t unique_instr;
+  
 };
+
+typedef analyzer<instruction>    analyzer_instr;
 
 #endif

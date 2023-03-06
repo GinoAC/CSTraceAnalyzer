@@ -52,8 +52,9 @@ int main(int argc, char* argv[]){
   //add instruction for the analysis
   
   //Read instruction
-  lyzer.add_instruction<instruction>(trace->get());
+  lyzer.add_instruction(trace->get());
 
+  tester test;
   //Perform analysis
 
   return 0;
