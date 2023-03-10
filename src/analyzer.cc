@@ -23,4 +23,9 @@ void analyzer<T>::add_instruction(T instr){
   current_instruction = instr;
 }
 
+template<typename T>
+void analyzer<T>::add_module(analysis_module<T> mod){
+  modules.push_back(mod);
+}
+
 template class analyzer<instruction>;

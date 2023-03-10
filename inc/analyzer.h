@@ -12,21 +12,22 @@
 #include <string.h>
 
 #include "analysis_module.h"
+#include "modules.h"
 #include "instruction.h"
 #include "trace_handler.h"
-#include "test.h"
 
 template <typename T>
 class analyzer{
 
 private:
 
-  //std::vector<analysis_module> modules;
+  std::vector<analysis_module<T>> modules;
   uint64_t instr_unique_id = 0;
   T current_instruction;
   int64_t start = 0, end = 0;
 
 public:
+
   analyzer() {};
 
   void set_window(int64_t _start, int64_t _end){
@@ -35,7 +36,8 @@ public:
   }
 
   void add_instruction(T instr);
-  uint64_t unique_instr;
+  
+  void add_module(analysis_module<T> mod);
   
 };
 
