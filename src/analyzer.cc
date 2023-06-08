@@ -28,4 +28,10 @@ void analyzer<T>::add_module(analysis_module<T> mod){
   modules.push_back(mod);
 }
 
+template <typename T>
+void analyzer<T>::operate(){
+  //for(auto a : modules)
+  //  a.operate();
+}
+
 template class analyzer<instruction>;

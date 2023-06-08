@@ -75,7 +75,6 @@ instruction trace_handler::read_single_instr()
 
     // close the trace file and re-open it
     close();
-    open(trace_name);
   }
 
   // copy the instruction into the performance model's instruction format
@@ -99,6 +98,11 @@ void trace_handler::close()
   if (trace_file != NULL) {
     pclose(trace_file);
   }
+}
+
+bool trace_handler::is_complete()
+{
+  return complete;
 }
 
 std::unique_ptr<trace_handler> get_trace_handler(std::string fname)

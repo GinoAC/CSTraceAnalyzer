@@ -10,10 +10,10 @@ template<typename T>
 class analysis_module{
 
 public:
-  analysis_module(); 
-  //~analysis_module();
+  analysis_module(){} 
 
-  void operate(T instr);
+  void add_inst(T instr);
+  void operate();
   void text_output();
   void json_output();
   void graph_output();

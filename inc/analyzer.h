@@ -36,9 +36,17 @@ public:
   }
 
   void add_instruction(T instr);
-  
+
+  //Adds a new module to the analyzer 
   void add_module(analysis_module<T> mod);
-  
+
+  //Operate function that iterates through the modules and 
+  //calls their operate function
+  void operate();
+
+  //Calls each module to perform analysis after the trace
+  //is finished being read
+  void post_completition_analysis();  
 };
 
 typedef analyzer<instruction>    analyzer_instr;

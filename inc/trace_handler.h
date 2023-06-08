@@ -33,6 +33,7 @@ protected:
   std::string cmd_fmtstr;
   std::string decomp_program;
   std::string trace_name;
+  bool complete;
 
 public:
   trace_handler(const trace_handler& other) = delete;
@@ -40,6 +41,7 @@ public:
   ~trace_handler();
   void open(std::string trace_string);
   void close();
+  bool is_complete();
 
   template <typename T>
   instruction read_single_instr();
@@ -73,5 +75,6 @@ public:
     last_instr = trace_read_instr;
     return retval;
   }
+
 };
 #endif
