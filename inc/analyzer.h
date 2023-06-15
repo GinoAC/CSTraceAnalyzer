@@ -21,7 +21,7 @@ class analyzer{
 
 private:
 
-  std::vector<analysis_module<T>> modules;
+  std::vector<analysis_module<T>*> modules;
   uint64_t instr_unique_id = 0;
   T current_instruction;
   int64_t start = 0, end = 0;
@@ -49,6 +49,7 @@ public:
   void post_completition_analysis();  
 };
 
-typedef analyzer<instruction>    analyzer_instr;
+typedef analyzer<instruction> analyzer_instr;
+typedef std::vector<analysis_module<instruction>*> modules;
 
 #endif

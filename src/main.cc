@@ -13,6 +13,8 @@
 //#include "user_defined_modules.h"
 
 #include <CLI/CLI.hpp>
+//#include <ftxui/screen/screen.hpp>
+
 int main(int argc, char* argv[]){
   
   CLI::App app{"A trace analyzer"};
@@ -30,9 +32,9 @@ int main(int argc, char* argv[]){
  
   analyzer<instruction> lyzer;
   
-  //Add your analysis module options here (TODO: Automate configuration) 
-  bool mem_region = false;
-  app.add_option("-m, --memory_regions", mem_region, "Displays instruction and data memory regions.");
+  //Add your analysis module options here (TODO: Automate configuration)
+  bool mem_region = false; 
+  app.add_flag("-m, --memory_regions", mem_region, "Displays instruction and data memory regions.");
  
   CLI11_PARSE(app, argc, argv);
 
@@ -61,6 +63,7 @@ int main(int argc, char* argv[]){
   printf("\n");
 
   while(!trace->is_complete()){
+
     //Read and pass an instruction to the underlying analysis modules
     lyzer.add_instruction(trace->get());
     current_instr_num++;
@@ -84,7 +87,9 @@ int main(int argc, char* argv[]){
       printf("\n");
       break;
     }
-    //lyzer.operate();
+
+    //operate based on latest instruction read in
+    lyzer.operate();
   }
 
   //Perform any post-trace analysis

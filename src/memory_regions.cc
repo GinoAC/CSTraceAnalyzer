@@ -10,10 +10,9 @@ struct m_region{
 std::map<uint64_t, m_region> ip_regions;
 std::map<uint64_t, m_region> data_regions;
 
-template <typename T>
-void memory_regions::operate(T instr){
-  printf("Test\n");
-}
+//void memory_regions::operate(){
+//  printf("Test\n");
+//}
 
 //template <typename T>
 //void memory_regions::operate(T instr);

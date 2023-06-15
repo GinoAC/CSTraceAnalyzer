@@ -12,10 +12,11 @@ class analysis_module{
 public:
   analysis_module(){} 
 
-  void add_inst(T instr);
-  void operate();
-  void text_output();
-  void json_output();
-  void graph_output();
+  virtual void add_inst(){}
+  virtual void module_operate(){}
+  virtual void text_output(){}
+  virtual void json_output(){}
+  virtual void graph_output(){}
 };
+
 #endif

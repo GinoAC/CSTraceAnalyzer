@@ -25,13 +25,14 @@ void analyzer<T>::add_instruction(T instr){
 
 template<typename T>
 void analyzer<T>::add_module(analysis_module<T> mod){
-  modules.push_back(mod);
+  modules.push_back(&mod);
 }
 
 template <typename T>
 void analyzer<T>::operate(){
-  //for(auto a : modules)
-  //  a.operate();
+  for(analysis_module<T>* a : modules){
+    a->module_operate();
+  }
 }
 
 template class analyzer<instruction>;

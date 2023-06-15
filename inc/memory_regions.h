@@ -29,8 +29,8 @@ public:
   
   }
 
+  void module_operate() override {printf("TEST!\n");};
   template <typename T>
-  void operate(T instr);
   void add_ip(uint64_t);
   void add_data(uint64_t);
 };
