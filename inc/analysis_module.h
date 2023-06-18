@@ -19,4 +19,18 @@ public:
   virtual void graph_output(){}
 };
 
+
+template<typename M>
+class module_wrap : public analysis_module<instruction>
+{
+  const M *m_mod;
+public:
+  module_wrap(const M *mod) : m_mod(mod){}
+  
+  void add_inst() const {m_mod->add_inst();}
+  void module_operate() const {m_mod->module_operate();}
+  void text_output() const {m_mod->text_output();}
+  void json_output() const {m_mod->json_output();}
+  void graph_output() const {m_mod->graph_output();}
+};
 #endif
