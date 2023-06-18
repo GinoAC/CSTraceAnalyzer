@@ -1,5 +1,7 @@
 SRC_DIR = src
+INC_DIR = inc
 MOD_DIR = modules
+MOD_DIR = modules_inc
 MOD_OBJ_DIR = obj_mod
 OBJ_DIR = obj
 BIN_DIR = bin
@@ -12,8 +14,8 @@ MOD_OBJ = $(subst .cc,.o, $(subst $(MOD_DIR), $(MOD_OBJ_DIR), $(MOD)))
 
 CC = gcc
 CXX = g++
-CPPFLAGS = -MMD -Iinc/
-CXXFLAGS = -g --std=c++17 -O3 -Wall -Wextra -Wshadow -Wpedantic -Iinc/
+CPPFLAGS = -MMD -I$(INC_DIR)
+CXXFLAGS = -g --std=c++17 -O3 -Wall -Wextra -Wshadow -Wpedantic -I$(INC_DIR) -I$(MOD_DIR)
 LDFLAGS  =
 LDLIBS  =
 

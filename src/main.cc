@@ -12,7 +12,7 @@
 #include "memory_regions.h"
 //#include "user_defined_modules.h"
 
-#include <CLI/CLI.hpp>
+#include <CLI.hpp>
 //#include <ftxui/screen/screen.hpp>
 
 int main(int argc, char* argv[]){
@@ -34,7 +34,7 @@ int main(int argc, char* argv[]){
   
   //Add your analysis module options here (TODO: Automate configuration)
   bool mem_region = false; 
-  app.add_flag("-m, --memory_regions", mem_region, "Displays instruction and data memory regions.");
+  app.add_flag("-m, --memory-regions", mem_region, "Displays instruction and data memory regions.");
  
   CLI11_PARSE(app, argc, argv);
 
