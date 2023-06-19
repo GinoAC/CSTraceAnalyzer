@@ -12,7 +12,7 @@
 #include "analysis_module.h"
 #include "instruction.h"
 
-class memory_regions : public analysis_module<instruction>
+class memory_regions : public analysis_module
 {
 public:
   uint64_t unique_instr;
@@ -29,8 +29,7 @@ public:
   
   }
 
-  void module_operate() override {printf("TEST!\n");};
-  template <typename T>
+  void module_operate();
   void add_ip(uint64_t);
   void add_data(uint64_t);
 };

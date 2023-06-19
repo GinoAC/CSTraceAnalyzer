@@ -18,21 +18,17 @@
 //
 #include "analyzer.h"
 
-template<typename T> 
-void analyzer<T>::add_instruction(T instr){
+void analyzer::add_instruction(instruction instr){
   current_instruction = instr;
 }
 
-template<typename T>
-void analyzer<T>::add_module(analysis_module<T> mod){
-  modules.push_back(&mod);
+void analyzer::add_module(analysis_module *mod){
+  modules.push_back(new module_wrapper(mod));
+  //modules.push_back(&mod);
 }
 
-template <typename T>
-void analyzer<T>::operate(){
-  for(analysis_module<T>* a : modules){
+void analyzer::operate(){
+  for(analysis_module* a : modules){
     a->module_operate();
   }
 }
-
-template class analyzer<instruction>;

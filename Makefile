@@ -1,7 +1,7 @@
 SRC_DIR = src
 INC_DIR = inc
 MOD_DIR = modules
-MOD_DIR = modules_inc
+MOD_INC_DIR = modules_inc
 MOD_OBJ_DIR = obj_mod
 OBJ_DIR = obj
 BIN_DIR = bin
@@ -11,15 +11,16 @@ SRC = $(wildcard $(SRC_DIR)/*.cc)
 MOD = $(wildcard $(MOD_DIR)/*.cc)
 OBJ = $(subst .cc,.o, $(subst $(SRC_DIR), $(OBJ_DIR), $(SRC)))
 MOD_OBJ = $(subst .cc,.o, $(subst $(MOD_DIR), $(MOD_OBJ_DIR), $(MOD)))
+DEPENDS := $(OBJS:.o=.d) #$(patsubst %.cpp,%.d,$(SRC))
 
 CC = gcc
 CXX = g++
-CPPFLAGS = -MMD -I$(INC_DIR)
-CXXFLAGS = -g --std=c++17 -O3 -Wall -Wextra -Wshadow -Wpedantic -I$(INC_DIR) -I$(MOD_DIR)
+CPPFLAGS = -MMD -MP -I$(INC_DIR) -I$(MOD_INC_DIR)
+CXXFLAGS = -g --std=c++17 -O3 -Wall -Wextra -Wshadow -Wpedantic -I$(INC_DIR) -I$(MOD_INC_DIR)
 LDFLAGS  =
 LDLIBS  =
 
-.PHONY: all clean
+.PHONY: all clean main
 all:$(EXE)
 	@echo Running all 
 
@@ -30,11 +31,11 @@ $(EXE): $(OBJ) $(MOD_OBJ) | $(BIN_DIR)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cc | $(OBJ_DIR)
 	@echo Building objects 
-	$(CXX) $(CXXFLAGS) -c $< -o $@
+	$(CXX) $(CXXFLAGS) -c -MMD -MP $< -o $@
 
 $(MOD_OBJ_DIR)/%.o: $(MOD_DIR)/%.cc | $(MOD_OBJ_DIR)
 	@echo Building objects 
-	$(CXX) $(CXXFLAGS) -c $< -o $@
+	$(CXX) $(CXXFLAGS) -c -MMD -MP  $< -o $@
 
 $(BIN_DIR) $(OBJ_DIR) $(MOD_OBJ_DIR):
 	@echo Making directory: $@
@@ -44,4 +45,5 @@ clean:
 	@echo Cleaning... 
 	$(RM) -rv $(BIN_DIR) $(OBJ_DIR) $(MOD_OBJ_DIR)
 
-#-include $(OBJ:.o=.d)
+-include $(DEPENDS)
+

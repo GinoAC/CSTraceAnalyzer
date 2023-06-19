@@ -30,7 +30,7 @@ int main(int argc, char* argv[]){
   app.add_option("-e, --end", end, "Instruction number to end analysis.");
   app.add_option("--heartbeat", heartbeat, "Enables showing the heartbeat");
  
-  analyzer<instruction> lyzer;
+  analyzer lyzer;
   
   //Add your analysis module options here (TODO: Automate configuration)
   bool mem_region = false; 
@@ -52,7 +52,7 @@ int main(int argc, char* argv[]){
   //Add modules here (TODO: Automate configuration)
   if(mem_region){
     memory_regions mr;
-    lyzer.add_module(mr);
+    lyzer.add_module(&mr);
   }
 
   //Create the trace handler

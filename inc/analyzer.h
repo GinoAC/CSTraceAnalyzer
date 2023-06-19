@@ -16,14 +16,13 @@
 #include "instruction.h"
 #include "trace_handler.h"
 
-template <typename T>
 class analyzer{
 
 private:
 
-  std::vector<analysis_module<T>*> modules;
+  std::vector<analysis_module*> modules;
   uint64_t instr_unique_id = 0;
-  T current_instruction;
+  instruction current_instruction;
   int64_t start = 0, end = 0;
 
 public:
@@ -35,10 +34,10 @@ public:
     end = _end;
   }
 
-  void add_instruction(T instr);
+  void add_instruction(instruction instr);
 
   //Adds a new module to the analyzer 
-  void add_module(analysis_module<T> mod);
+  void add_module(analysis_module *mod);
 
   //Operate function that iterates through the modules and 
   //calls their operate function
@@ -48,8 +47,5 @@ public:
   //is finished being read
   void post_completition_analysis();  
 };
-
-typedef analyzer<instruction> analyzer_instr;
-typedef std::vector<analysis_module<instruction>*> modules;
 
 #endif
