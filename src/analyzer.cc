@@ -19,16 +19,15 @@
 #include "analyzer.h"
 
 void analyzer::add_instruction(instruction instr){
-  current_instruction = instr;
+	current_instruction = instr;
 }
 
 void analyzer::add_module(analysis_module *mod){
-  modules.push_back(new module_wrapper(mod));
-  //modules.push_back(&mod);
+	modules.push_back(new module_wrapper(mod));
 }
 
 void analyzer::operate(){
-  for(analysis_module* a : modules){
-    a->module_operate();
+	for(auto a : modules){
+		a->module_operate();
   }
 }
