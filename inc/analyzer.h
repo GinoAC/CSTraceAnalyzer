@@ -21,6 +21,7 @@ class analyzer{
 private:
 
   std::vector<analysis_module*> modules;
+  //std::vector<analysis_module*> modules;
   uint64_t instr_unique_id = 0;
   instruction current_instruction;
   int64_t start = 0, end = 0;

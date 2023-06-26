@@ -29,8 +29,15 @@ public:
   
   }
 
-  void module_operate();
-  void add_ip(uint64_t);
-  void add_data(uint64_t);
+	void sound_off();
+  void module_operate()   override;
+  void add_inst(instruction inst)   override; 
+ 
+  void text_output()   override {}
+  void json_output()   override {}
+  void graph_output()   override {}
+ 
+  void add_ip(uint64_t ip);
+  void add_data();
 };
 #endif

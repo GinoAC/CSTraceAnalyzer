@@ -10,12 +10,13 @@ struct m_region{
 std::map<uint64_t, m_region> ip_regions;
 std::map<uint64_t, m_region> data_regions;
 
-void memory_regions::module_operate() const{
+void memory_regions::module_operate()  {
 	printf("Test\n");
 }
 
-//template <typename T>
-void memory_regions::add_ip(){ printf("\n"); };
-void memory_regions::add_data(){ printf("\n"); };
+void memory_regions::add_inst(instruction inst)  {
+}
 
-void memory_regions::sound_off(){printf("I'M HERE\n");}
+//template <typename T>
+void memory_regions::add_ip(uint64_t ip){ printf("\n"); };
+void memory_regions::add_data(){ printf("\n"); };

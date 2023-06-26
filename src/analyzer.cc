@@ -17,9 +17,13 @@
 //
 //
 #include "analyzer.h"
+#include "memory_regions.h"
 
 void analyzer::add_instruction(instruction instr){
 	current_instruction = instr;
+  for(auto a : modules){
+    a->add_inst(instr);
+  }
 }
 
 void analyzer::add_module(analysis_module *mod){

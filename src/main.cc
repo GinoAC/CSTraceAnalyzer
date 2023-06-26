@@ -52,7 +52,7 @@ int main(int argc, char* argv[]){
   //Add modules here (TODO: Automate configuration)
   if(mem_region){
     memory_regions mr;
-    lyzer.add_module(&mr);
+    lyzer.add_module(new memory_regions());
   }
 
   //Create the trace handler

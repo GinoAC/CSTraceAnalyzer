@@ -13,26 +13,27 @@ class analysis_module{
 public:
   analysis_module(){} 
 
-  virtual void add_inst() const = 0;
-  virtual void module_operate() const = 0;
-  virtual void text_output() const = 0;
-  virtual void json_output() const = 0;
-  virtual void graph_output() const = 0;
+  virtual void add_inst(instruction inst)   = 0;
+  virtual void module_operate()   = 0;
+  virtual void text_output()   = 0;
+  virtual void json_output()   = 0;
+  virtual void graph_output()   = 0;
 };
 
 
 template<typename M>
 class module_wrapper : public analysis_module
 {
-  const M *m_mod;
+   M *m_mod;
 
 public:
-  module_wrapper(const M *mod) : m_mod(mod){}
+  module_wrapper(  M *mod) : m_mod(mod){}
 
-  void module_operate() const {return m_mod->module_operate();}
-  void add_inst() const {return m_mod->add_inst();}
-  void text_output() const {return m_mod->text_output();}
-  void json_output() const {return m_mod->json_output();}
-  void graph_output() const {return m_mod->graph_output();}
+  //void module_operate()   override {printf("Meow\n");}
+  void module_operate()   override {m_mod->module_operate();}
+  void add_inst(instruction inst)   override {m_mod->add_inst(inst);}
+  void text_output()   override {m_mod->text_output();}
+  void json_output()   override {m_mod->json_output();}
+  void graph_output()   override {m_mod->graph_output();}
 };
 #endif
