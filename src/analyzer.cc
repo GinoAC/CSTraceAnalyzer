@@ -35,3 +35,13 @@ void analyzer::operate(){
 		a->module_operate();
   }
 }
+
+void analyzer::text_output(){
+  for(auto a : modules){
+    a->text_output();
+  }
+}
+
+void analyzer::json_output(){}
+void analyzer::graph_output(){}
+

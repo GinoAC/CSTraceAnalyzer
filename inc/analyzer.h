@@ -47,6 +47,11 @@ public:
   //Calls each module to perform analysis after the trace
   //is finished being read
   void post_completition_analysis();  
+
+  void text_output();
+  void json_output();
+  void graph_output();
+
 };
 
 #endif

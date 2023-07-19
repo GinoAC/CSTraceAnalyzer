@@ -94,6 +94,7 @@ int main(int argc, char* argv[]){
 
   //Perform any post-trace analysis
   printf("Performing post trace-reading analysis...\n");
-
+  lyzer.text_output();
+  
   return 0;
 }
